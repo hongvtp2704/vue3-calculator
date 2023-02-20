@@ -31,7 +31,7 @@ export const useCalculatorStore = defineStore("calculator", {
       const lastDigit = this.memory[this.memory.length - 1];
 
       if (lastDigit === "." && digit === ".") return;
-      if(this.memory.includes('.') && digit === '.') return;
+      if (this.memory.includes(".") && digit === ".") return;
       if (lastDigit === "0" && this.memory.length === 1) this.memory = ""; //erase first 0
 
       this.memory += `${digit}`;
@@ -56,7 +56,7 @@ export const useCalculatorStore = defineStore("calculator", {
       this.result = eval(this.memory);
     },
 
-    calculatePercentage(){
+    calculatePercentage() {
       this.calculateResult();
 
       if (!this.result) return;
@@ -64,11 +64,11 @@ export const useCalculatorStore = defineStore("calculator", {
       this.memory = this.result.toString();
     },
 
-    negativeResult(){
+    negativeResult() {
       this.calculateResult();
 
-      if(!this.result) return;
-      this.result = -(this.result);
+      if (!this.result) return;
+      this.result = -this.result;
       this.memory = this.result.toString();
     },
 

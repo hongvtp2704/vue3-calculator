@@ -51,12 +51,42 @@
 </template>
 
 <script lang="ts" setup>
+import { onMounted } from "vue";
+
 import Grid from "../components/Grid.vue";
 import Screen from "../components/Screen.vue";
 import Button from "../components/Button.vue";
 
+import {
+  DIGITS,
+  OPERATORS,
+  RESULT_KEYS,
+  CLEAR_KEYS,
+  NEGATIVE_KEY,
+  PERCENTAGE_KEY,
+} from "../constants";
 import { useCalculatorStore } from "../stores";
 
 const calculatorStore = useCalculatorStore();
-const { addDigit, addOperator, calculateResult, calculatePercentage, negativeResult ,reset } = calculatorStore;
+const {
+  addDigit,
+  addOperator,
+  calculateResult,
+  calculatePercentage,
+  negativeResult,
+  reset,
+} = calculatorStore;
+
+onMounted(() => {
+  window.addEventListener("keydown", (event) => {
+    const key = event.key;
+
+    if (DIGITS.includes(key)) addDigit(key);
+    if (OPERATORS.includes(key)) addOperator(key);
+    if (RESULT_KEYS.includes(key)) calculateResult();
+    if (NEGATIVE_KEY.includes(key)) negativeResult();
+    if (PERCENTAGE_KEY.includes(key)) calculatePercentage();
+    if (CLEAR_KEYS.includes(key)) reset();
+  });
+});
 </script>
